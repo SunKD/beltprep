@@ -77,8 +77,8 @@ def view_user(request, id):
 def delete(request, id):
 	if 'user_id' not in request.session:
 		return redirect(reverse('user_index'))
-	Review.objects.get(id = id).delete()
-	return redirect(reverse('user_index'))
+	Quote.objects.get(id = id).delete()
+	return redirect(reverse('quote_index'))
 
 
 def logout(request):

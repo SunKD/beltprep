@@ -23,6 +23,15 @@
         border: 1px solid grey;
         padding: 10px;
     }
+
+    .btn-info{
+        margin-left: 20px;
+        margin-right: 80px;
+    }
+
+    .float-right{
+        clear: both;
+    }
     </style>
 </head>
 <body>
@@ -39,10 +48,12 @@
     </nav>        
         {% if messages %}
             {% for message in messages %}
-                <p>{{ message }} 
+                <p>
+                    {{ message }} 
                     {% if message.tags %}
                     has these tags: {{message.tags }}
-                    {% endif %}</p>
+                    {% endif %}
+                </p>
             {% endfor %}
         {% endif %}
         <div class="row">
@@ -54,9 +65,15 @@
                         {% csrf_token %}
                         <input type="hidden" value= {{quote.id}} name="qid">
                         <h4>{{quote.quoted_by}}: {{quote.message}}</h4>
-                        <p>postedby <a href="users/{{quote.uploader.id}}">{{quote.uploader.name}}</a></p>
-                        <input type="submit" value="Add to My List">
+                        <p>Posted by <a href="users/{{quote.uploader.id}}">{{quote.uploader.name}}</a></p>
                     </form>
+                    <div class="row">
+                        <input type="submit" value="Add to My List" class="btn btn-info btn-sm">
+                        <form action="{%url 'delete_quote' quote.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Delete" class="btn btn-danger btn-sm float-right">
+                        </form>
+                    </div>
                     {%endfor%} 
                 </div>          
             </div>
@@ -65,11 +82,11 @@
                 <div class="scrollbox2">
                     {% for favorite in favorites %}
                     <form action="{%url 'remove_favorite' %}" method="POST">
-                      {% csrf_token %}
+                    {% csrf_token %}
                         <input type="hidden" value= {{favorite.id}} name="favoriteid">
                         <h4>{{favorite.quoted_by}}: {{favorite.message}}</h4>
                         <p>Posted by {{favorite.uploader.name}}</p>
-                        <p><input type="submit" value="Remove From My List"></p>
+                        <p><input type="submit" value="Remove From My List" class="btn btn-danger btn-sm float-right"></p>
                     </form>
                     {% endfor %}
                 </div><br>
@@ -80,7 +97,7 @@
                         <input type="text" name="quoter" class="form-control" required><br>
                         <label for="message">Message</label>
                         <textarea name="message" class="form-control" required></textarea><br>
-                        <p><input type="submit" value="Sumbit" class="btn btn-info form-control"></p>
+                        <p><input type="submit" value="Sumbit" class="btn btn-info form-control float-right"></p>
                     </form>
                 </div>
             </div>
