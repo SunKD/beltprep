@@ -6,6 +6,7 @@ from ..users_app.models import User
 from models import *
 from django.core.urlresolvers import reverse
 from time import gmtime, strftime
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
