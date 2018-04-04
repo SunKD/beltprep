@@ -11,10 +11,10 @@ class AddManager(models.Manager):
             'status': False
         }
         errors=[]
-        if postData['quoter'] == "" or postData['quoter'] < 3 :
+        if postData['quoter'] == "" or len(postData['quoter']) < 3 :
             errors.append("Quoted by should be more than 3 characters")
         
-        if postData['message'] < 10:
+        if len(postData['message']) < 10:
             errors.append("message should be longer than 10 characters!")
 
         if len(errors):
